@@ -1,0 +1,93 @@
+.search-bar {
+    position: absolute;
+    top: 98px;
+    width: calc(100% - 250px);
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+}
+.search-box-container {
+    border: 1px solid gray;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    /* flex: 1; */
+    width: 100%;
+    max-width: 600px;
+    min-width: 235px;
+    height: 35px;
+}
+#search-box {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+#delete-button, 
+#search-button {
+    font-size: 160%;
+}
+#individual,
+#group {
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+#individual::-webkit-scrollbar,
+#group::-webkit-scrollbar {
+    display: none;
+}
+
+/* .recruitments-container {
+    width: 100%;
+    border-top: 1px solid rgb(200, 200, 200);
+} */
+.recruitment-box {
+    height: 120px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+.chat-box {
+    height: 85px;
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+/* content2(3)はテキストの長さが2(3)行以上になったら…で省略する */
+.content2,
+.content3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: pre-wrap ;
+}
+.content3 {
+    -webkit-line-clamp: 3;
+}
+.content2 {
+    -webkit-line-clamp: 2;
+}
+.join-button {
+    background-color: black;
+    color: white;
+    width: 230px;
+    padding: 3px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+.stop-button {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 800px) {
+    .search-bar {
+        width: 100%;
+    }
+}
+
+
+/* --------------------募集の詳細のスタイル------------------ */
+.explanation {
+    margin: 10px 20px 0px 15px;
+    max-width: min(calc(100vw - 30px), 500px);
+    white-space: pre-wrap;
+}

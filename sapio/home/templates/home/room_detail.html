@@ -1,0 +1,23 @@
+<!-- <div class="d-flex align-items-center">
+    <img src="{{ room.group_icon.url }}" class="icon">
+    <h2 class="my-0 ms-3">{{ room.group_name }}</h2>
+</div> -->
+<!-- <h2 class="my-0 ms-3">{{ room.group_name }}</h2> -->
+<div class="d-flex justify-content-around mt-3">
+    <label onclick="okay();" class="d-flex flex-column align-items-center"><i class="fa-solid fa-user-plus fa-2x"></i>招待</label>
+    <label onclick="leaveGroup('{{ room.id }}');" class="d-flex flex-column align-items-center"><i class="fa-solid fa-person-walking-arrow-right fa-2x"></i>退会</label>
+</div>
+<hr>
+
+<div class="d-flex">
+    <h3 class="ms-2 mb-0">メンバー</h3>
+    {% if user_count != 1 %}
+    <h5 class="mt-1 ms-1">({{ user_count }})</h5>
+    {% endif %}
+</div>
+{% for user in room.users.all %}
+    <label onclick="changePage('profile', args={uuid: '{{ user.uuid }}'});" class="d-flex align-items-center mt-3 ms-2">
+        <img src="{{ user.profile_icon.url }}" class="icon">
+        <h5 class="my-0 ms-2 fw-normal">{{ user.username }}</h5>
+    </label>
+{% endfor %}

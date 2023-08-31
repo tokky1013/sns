@@ -1,0 +1,86 @@
+body > header {
+    height: 80px;
+    background-color: rgb(40, 40, 40);
+    display: flex;
+    align-items: center;
+}
+body > main {
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+form > h2 {
+    font-weight: 300;
+}
+.signup-link,
+.top-link {
+    color: white;
+    font-weight: 200;
+    font-size: 115%;
+}
+.signup-link:hover,
+.top-link:hover {
+    color: white;
+}
+#login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.input-box {
+    border: none;
+    border-bottom: 2px gray solid;
+    width: 50vw;
+    max-width: 500px;
+    min-width: 300px;
+    outline: none;
+    font-size: 120%;
+}
+input[type="submit"] {
+    margin: 0 auto;
+}
+.subject {
+    font-size: 85%;
+    font-weight: 200;
+    margin-top: 20px;
+}
+.error {
+    color: red;
+    font-size: small;
+    height: 30px;
+    padding-top: 5px;
+}
+.error-container {
+    min-height: 30px;
+    width: 70vw;
+    max-width: 600px;
+    min-width: 270px;
+    word-wrap: break-word;
+}
+ul.errorlist > li {
+    list-style: none;
+}
+.submit-button {
+    background-color: gray;
+    
+    border: none;
+    color: white;
+    font-size: 150%;
+
+    height: 45px;
+    width: 70vw;
+    max-width: 600px;
+    min-width: 270px;
+    font-weight: 200;
+    text-decoration: none;
+
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

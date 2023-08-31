@@ -1,0 +1,35 @@
+<div class="d-flex flex-column h-100">
+    <div class="tab">
+        <label id="group-tab" class="px-3 tab-button selected-tab" onclick="select(0)">
+            <i class="fa-solid fa-users me-2"></i>グループ
+        </label>
+        <label id="individual-tab" class="px-3 tab-button" onclick="select(1)">
+            <i class="fa-solid fa-user me-2"></i>
+            <p style="font-size: 80%; margin-top: 15px;">個別チャット</p>
+        </label>
+    </div>
+    <div class="search-bar">
+        <div class="flex-fill"></div>
+        <div class="search-box-container mx-2">
+            <input id="search-box" type="text" class="flex-fill mx-2" placeholder="キーワードで絞り込み">
+            <label id="delete" style="display: none;" onclick="deleteKeywords()" class="align-items-center"><i id="delete-button" class="fa-solid fa-xmark text-muted ms-1"></i></label>
+            <label class="d-flex align-items-center ms-2 me-1" onclick="displayList(pages[0], selectedTab, initialize=true, keywords=$('#search-box').val());"><i id="search-button" class="fa-solid fa-magnifying-glass mx-1" style="color: gray;"></i></label>
+        </div>
+        <div class="flex-fill"></div>
+        <label onclick="location.href = fillURL(recruitmentCreationURL, {type: selectedTab});"><i class="fa-solid fa-plus ms-2 me-3 fa-2x"></i></label>
+    </div>
+    <div id="group" class="flex-fill">
+        <div class="spacer"></div>
+        <!-- idは<type>-<pagename> -->
+        <div id="group-recruitment" class="w-100 px-3">
+
+        </div>
+    </div>
+    <div id="individual" style="display: none" class="flex-fill">
+        <div class="spacer"></div>
+        <!-- idは<type>-<pagename> -->
+        <div id="individual-recruitment" class="w-100 px-3">
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+main {
+    height: 100vh;
+}
+.nav-bar {
+    background-color: rgb(40, 40, 40);
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+.width-50 {
+    width: 50px;
+}
+.page-container {
+    position: fixed;
+}
+.page {
+    width: 100vw;
+    height: calc(100vh - 60px);
+    overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    background-color: rgb(245, 245, 245);
+}
+.text-input,
+.explanation {
+    border: none;
+    /* border-bottom: 2px gray solid; */
+    background-color: transparent;
+    outline: none;
+    font-size: 120%;
+    font-weight: 300;
+    border-radius: 0px;
+    /* width: clamp(300px, 51vw, 501px); */
+    width: 100%;
+    background-color: white;
+    outline: 1px solid rgb(173, 173, 173);
+}
+.text-input {
+    height: 50px;
+}
+#icon-preview {
+    width: clamp(150px, 30vw, 220px);
+    height: clamp(150px, 30vw, 220px);
+    border-radius: 15px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.6);
+}
+.delete-button {
+    position: relative;
+    left: clamp(75px, 15vw, 110px);
+    top: clamp(-110px, -15vw, -75px);
+    background-color: white;
+    border-radius: 50%;
+    font-size: 160%;
+    width: 25px;
+    height: 25px;
+    display: none;
+}
+/* .explanation {
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+} */
+#submit-button {
+    background-color: gray;
+    
+    border: none;
+    color: white;
+    font-size: 150%;
+
+    height: 45px;
+    width: 70vw;
+    max-width: 450px;
+    min-width: 270px;
+    font-weight: 200;
+    
+    margin: 0 auto;
+    border-radius: 25px;
+    display: block;
+}
+
+/* ----------cropper----------- */
+.cropper-view-box,
+.cropper-face {
+    border-radius: 50%;
+}
+
+.completion-btn {
+    color: white;
+    position: fixed;
+    bottom: 22px;
+}
+
+#go-back-button {
+    position: absolute;
+    left: calc(100vw + 20px);
+    color: white;
+}

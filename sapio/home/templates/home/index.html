@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}トップ{% endblock %}
+{% block files %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/index.css' %}">
+{% endblock files %}
+
+{% block content %}
+<header>
+    <img src="{% static 'sapio/image/icon.PNG' %}" class="app-icon ms-4">
+    <div class="flex-fill"></div>
+    <a id="login-button" href="{% url 'login' %}">ログイン</a>
+    <div style="width: 5vw"></div>
+</header>
+<main>
+    <div class="top">
+        <div class="flex-fill"></div>
+        <p class="text-light text-lg">hogehoge</p>
+        <p class="text-light text-lg">hogehogeほげ</p>
+        <div class="flex-fill"></div>
+    </div>
+    <div class="middle">
+        <div class="flex-fill"></div>
+        <a href="{% url 'signup' %}" class="signup mt-4">新しいアカウントを作成</a>
+        <a href="{% url 'login' %}" class="signin">ログイン</a>
+        <div class="flex-fill"></div>
+    </div>
+</main>
+<footer>
+
+</footer>
+{% endblock content %}

@@ -1,0 +1,11 @@
+<div id="request-${id}" class="d-flex align-items-center recruitment-box" data-id="${id}" data-icon="${icon}" data-name="${name}" data-content="${content}">
+    <label onclick="changePage('profile', args={uuid: '${id}'});">
+        <img src="${icon}" class="icon m-2">
+    </label>
+    <div class="flex-fill">
+        <p class="my-1 lead">${name}</p>
+        <small class="mb-0 content2">${content}</small>
+    </div>
+    <label class="ms-2 me-3" onclick="sendFriendRequest('${id}');"><i class="fa-solid fa-circle-check fa-2x text-primary"></i></label>
+    <label onclick="rejectFriendRequest('${id}');"><i class="fa-solid fa-circle-xmark fa-2x text-danger"></i></label>
+</div>

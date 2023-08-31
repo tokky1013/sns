@@ -1,0 +1,67 @@
+html {
+    box-sizing: border-box;
+    background: rgb(248, 248, 248);
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+button {
+    border: none;
+    background: transparent;
+}
+
+div.tab {
+    height: 40px;
+    background-color: rgb(221, 221, 221);
+    display: flex;
+}
+.tab-button {
+    font-size: 150%;
+    font-weight: 200;
+    width: 200px;
+    max-width: 50vw;
+    border-right: 1px solid rgb(200, 200, 200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(90, 90, 90);
+}
+.selected-tab {
+    background-color: white;
+    color: black;
+    pointer-events: none;
+}
+img.icon-maximum {
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+}
+img.icon-lg {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+}
+img.icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+img.icon-small {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+img.app-icon {
+    height: 50px;
+    width: 50px;
+}
+a.link {
+    text-decoration: none;
+}
+
+.spacer {
+    margin-top: 50px;
+}
+.spacer-70 {
+    margin-top: 70px;
+}

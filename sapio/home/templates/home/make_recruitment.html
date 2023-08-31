@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ホーム{% endblock %}
+{% block files %}
+<!-- css読み込み -->
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/make_recruitment.css' %}">
+{% endblock files %}
+
+{% block content %}
+<header>
+    <!-- cropper -->
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'sapio/css/cropper.min.css' %}">
+    <!-- javascript -->
+    <script type="text/javascript" src="{% static 'sapio/js/cropper.min.js' %}"></script>
+</header>
+<main>
+    <div class="nav-bar">
+        <a href="{% url 'home' %}" class="to-home text-center width-50"><i class="fa-solid fa-angle-left fa-3x text-light my-2 ms-4"></i></a>
+        <div class="flex-fill"></div>
+        <h1 class="text-light my-2">メンバー募集</h1>
+        <div class="flex-fill"></div>
+        <div class="width-50"></div>
+    </div>
+    <form method="POST" id="recruitment-creation-form">
+        <div class="d-flex page-container">
+            <div class="page">
+                {% csrf_token %}
+                <div class="mx-3 mt-5">
+                    <h3>タイプ</h3>
+                    <div class="d-flex justify-content-around mt-3">
+                        <label style="font-size: 1.2rem;"><input id="group-checkbox" type="radio" name="radio" class="checkbox me-1" value="group" checked="true">グループ</label>
+                        <label style="font-size: 1.2rem;"><input id="individual-checkbox" type="radio" name="radio" class="checkbox me-1" value="individual">1対1</label>
+                    </div>
+
+                    <h3 class="mt-4">話したいこと</h3>
+                    <textarea name="explanation" class="explanation mt-2" cols="30" rows="4"></textarea>
+
+                    <div id="group-input">
+                        <h3 class="mt-4">グループ名</h3>
+                        <input type="text" name="group_name" class="text-input mt-2">
+                        <h3 class="mt-4">アイコン</h3>
+                        <input type="file" id="group-icon" class="d-none" accept="image/*">
+                        <label for="group-icon" class="d-flex justify-content-center">
+                            <div id="icon-preview">
+                                <div class="plus-button"><i class="fa-solid fa-image me-1"></i>画像を選択</div>
+                                <label onclick="setIcon(); return false;"><i class="fa-solid fa-circle-xmark text-muted delete-button"></i></label>
+                            </div>
+                        </label>
+                    </div>
+                    <input type="submit" class="my-5" id="submit-button" value="メンバーを募集" onclick="createRecruitment(); return false">
+                </div>
+            </div>
+
+            <div id="cropper-page" class="page">
+                <div class="cropper-container">
+                    <p><img alt="トリミング画像" id="triming-canvas"/></p>
+                </div>
+                <label onclick="trimIcon();" id="completion" class="completion-btn"><h3>完了</h3></label>
+                <label id="go-back-button" onclick="endCropper();"><i class="fa-solid fa-angle-left fa-3x my-2"></i></label>
+            </div>
+        </div>
+    </form>
+</main>
+<script>
+    // Djangoで埋め込みたい文字列をここで定義
+    const homeURL = "{% url 'home' %}"
+</script>
+<!-- jsファイル読み込み -->
+<script src="{% static 'sapio/js/funcs.js' %}"></script>
+<script src="{% static 'home/js/make_recruitment.js' %}"></script>
+{% endblock content %}

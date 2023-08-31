@@ -1,0 +1,196 @@
+input, select {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+body > header {
+    height: 80px;
+    background-color: rgb(40, 40, 40);
+    display: flex;
+    align-items: center;
+    min-width: 310px;
+}
+body > main {
+    height: calc(100vh - 120px);
+    min-width: 310px;
+}
+body > footer {
+    height: 40px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 310px;
+    position: absolute;
+    z-index: 1;
+    background-color: transparent;
+}
+div.page > h2 {
+    font-weight: 300;
+}
+.login-link,
+.top-link {
+    color: white;
+    font-weight: 200;
+    font-size: 115%;
+}
+.login-link:hover,
+.top-link:hover {
+    color: white;
+}
+#form-container {
+    position: fixed;
+    left: 0vw;
+    height: calc(100vh - 80px);
+    display: flex;
+    min-width: 310px;
+}
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100vh - 80px);
+    width: 100vw;
+    min-width: 310px;
+    overflow-y: scroll;
+    background-color: white;
+}
+.spacer {
+    margin-top: 40px;
+    width: 10px;
+}
+#triming-page {
+    height: calc(100vh - 80px);
+    background-color: black;
+}
+#signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 310px;
+}
+.input-box,
+.date-box {
+    border: none;
+    border-bottom: 2px gray solid;
+    background-color: transparent;
+    outline: none;
+    font-size: 120%;
+    font-weight: 300;
+    border-radius: 0px;
+}
+.input-box {
+    width: clamp(300px, 51vw, 501px);
+}
+.date-box {
+    width: clamp(76px, calc(17vw - 24px), 143px);
+}
+.slash {
+    width: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.birthday-container {
+    display: flex; 
+    width: clamp(300px, 51vw, 501px);
+    align-items: center; 
+    justify-content: space-between;
+}
+#self_introduction {
+    outline: 1px #ededed solid;
+    padding: 8px;
+    font-size: 85%;
+}
+input[type="submit"] {
+    margin: 0 auto;
+}
+#icon-preview {
+    width: clamp(150px, 30vw, 220px);
+    height: clamp(150px, 30vw, 220px);
+    border-radius: 15px;
+    background-color: rgb(245, 245, 245);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.6);
+}
+.plus-button {
+    background-color: rgb(70, 70, 70);
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0px 0px 0px 2px white inset;
+}
+.delete-button {
+    position: relative;
+    left: clamp(75px, 15vw, 110px);
+    top: clamp(-110px, -15vw, -75px);
+    background-color: white;
+    border-radius: 50%;
+    font-size: 160%;
+    width: 25px;
+    height: 25px;
+    display: none;
+}
+.subject {
+    font-size: 105%;
+    font-weight: 200;
+    margin-top: 20px;
+}
+.error {
+    color: red;
+    font-size: small;
+    height: 30px;
+    padding-top: 5px;
+    width: clamp(300px, 50vw, 500px);
+}
+.page-dot {
+    width: 14px;
+    height: 14px;
+    border: 2px solid gray;
+    border-radius: 7px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.submit-button {
+    background-color: gray;
+    
+    border: none;
+    color: white;
+    font-size: 150%;
+
+    height: 45px;
+    width: 70vw;
+    max-width: 600px;
+    min-width: 270px;
+    font-weight: 200;
+    text-decoration: none;
+
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+label.go-back {
+    color: gray;
+    position: fixed;
+    left: min(3vw, 50px);
+    top: 100px;
+    z-index: 3;
+}
+
+/* ----------cropper----------- */
+.cropper-view-box,
+.cropper-face {
+    border-radius: 50%;
+}
+
+.completion-btn {
+    color: white;
+    position: fixed;
+    bottom: 22px;
+}

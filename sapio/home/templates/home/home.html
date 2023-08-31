@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ホーム{% endblock %}
+{% block files %}
+<!-- css読み込み -->
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/home.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/recruitment.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'chat/css/room.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/css/profile.css' %}">
+{% endblock files %}
+
+{% block content %}
+<main class="d-flex">
+    <input type="checkbox" id="menu-checkbox">
+    <label for="menu-checkbox" class="back"></label>
+
+    <div class="menu">
+        <div class="menu-spacer">
+            <label for="menu-checkbox" id="close-menu"><i class="fa-solid fa-xmark fa-2x text-muted m-3"></i></label>
+        </div>
+        <h2 class="fw-light text-center text-lg">MENU</h2>
+        <div class="menu-button">
+            <div class="selection">
+                <i id="selection-recruitment" class="fa-solid fa-caret-right selection-caret"></i>
+            </div>
+            <button onclick="changePage('recruitment')">
+                タイムライン
+            </button>
+        </div>
+        <div class="menu-button">
+            <div class="selection">
+                <i id="selection-chat" class="fa-solid fa-caret-right selection-caret"></i>
+            </div>
+            <button onclick="changePage('chat')">
+                チャット
+            </button>
+        </div>
+        <div class="menu-button">
+            <div class="selection">
+                <i id="selection-friend" class="fa-solid fa-caret-right selection-caret"></i>
+            </div>
+            <button onclick="changePage('friend')">
+                フレンド
+            </button>
+        </div>
+        <!-- <div class="menu-button">
+            <div class="selection"></div>
+            <button onclick="get(`{% url 'profile' request.user.uuid %}`)">
+                プロフィール
+            </button>
+        </div> -->
+        <div class="menu-button">
+            <div class="selection"></div>
+            <button onclick="location.href=`{% url 'setting' %}`;">
+                アカウント
+            </button>
+        </div>
+    </div>
+
+    <!-- <div class="page-container d-flex flex-column"> -->
+    <div class="page-container">
+        <div class="header">
+            <label id="open-menu" for="menu-checkbox">
+                <i class="fa-solid fa-bars fa-2x text-light px-4"></i>
+                <div>メニュー</div>
+            </label>
+            <div class="flex-fill"></div>
+            <h2 id="title"></h2>
+            <div class="flex-fill"></div>
+            <a id="setting-link" class="me-3" href="{% url 'setting' %}">
+                <img src="{{ request.user.profile_icon.url }}" class="icon-small">
+                <div>アカウント</div>
+            </a>
+        </div>
+
+        <div id="content" class="content">
+            <!-- ここにページの内容が入る -->
+        </div>
+    </div>
+    <div id="content2" class="content">
+        <!-- 右から出てくる２ページ目 -->
+    </div>
+    <div id="page3-container" class="px-1" style="display: none;" onclick="hidePage3();">
+        <div id="third-page">
+            <div class="header-page3">
+                <div style="width: 50px;">
+                    <label id="goback-page3" style="display: none;" onclick="showPreviousPage3();"><i class="fa-solid fa-angle-left fa-3x ms-3 my-1"></i></label>
+                </div>
+                <div class="flex-fill"></div>
+                <h2 id="third-page-title" class="mt-2 d-flex align-items-center"></h2>
+                <div class="flex-fill"></div>
+                <div style="width: 50px; text-align: end;">
+                    <label onclick="hidePage3();" class="mt-1"><i class="fa-solid fa-xmark fa-2x me-2"></i></label>
+                </div>
+            </div>
+            <div id="content3" class="px-3 pb-3 pt-2">
+                <!-- 1, 2ページの上に表示される3ページ目 -->
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    // Djangoで埋め込みたい文字列をここで定義
+    const userId = "{{ request.user.uuid }}"
+    const recruitmentURL = "{% url 'recruitment' %}";
+    const chatURL = "{% url 'chat' %}";
+    const friendURL = "{% url 'friend' %}";
+
+    const roomURL = "{% url 'room' '<type>' '<room_id>' %}";
+    const deleteRecruitmentURL = "{% url 'delete_recruitment' '<room_type>' '<id>' %}"
+
+    const pageURLs = {
+        recruitment: {
+            'group': "{% url 'get_group_chat_recruitments' %}",
+            'individual': "{% url 'get_individual_chat_recruitments' %}"
+        },
+        chat: {
+            'group': "{% url 'get_group_chat_rooms' %}",
+            'individual': "{% url 'get_individual_chat_rooms' %}"
+        },
+        friend: {
+            'friends': "{% url 'get_friends' %}",
+            'friend-requests': "{% url 'get_friend_requests' %}"
+        },
+    };
+
+    const getMessagesURL = "{% url 'get_messages' '<type>' '<room_id>' %}";
+
+    const recruitmentDetailURL = "{% url 'recruitment_detail' '<type>' '<id>' %}";
+    const roomDetailURL = "{% url 'room_detail' '<id>' %}"
+    const profileURL = "{% url 'profile' '<uuid>' %}";
+
+    const startIndividualChatURL = "{% url 'create_individual_room' '<uuid>' %}";
+    const joinGroupURL = "{% url 'join_group' '<group_id>' %}";
+    const sendFriendRequestURL = "{% url 'send_friend_request' '<uuid>' %}";
+    const rejectFriendRequestURL = "{% url 'reject_friend_request' '<uuid>' %}";
+    const leaveGroupURL = "{% url 'leave_group' '<group_id>' %}"
+
+    const settingURL = "{% url 'setting' %}"
+    const recruitmentCreationURL = "{% url 'make_recruitment' %}";
+</script>
+<!-- jsファイル読み込み -->
+<script src="{% static 'home/js/home.js' %}"></script>
+<script src="{% static 'sapio/js/funcs.js' %}"></script>
+<!-- <script src="{% static 'home/js/recruitment.js' %}"></script> -->
+<script src="{% static 'home/js/pages.js' %}"></script>
+
+<script src="{% static 'chat/js/room.js' %}"></script>
+{% endblock content %}

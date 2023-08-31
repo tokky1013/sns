@@ -1,0 +1,35 @@
+<div class="d-flex align-items-center justify-content-start">
+    {% if type == 'group' %}
+    <img src="{{ recruitment.room.group_icon.url }}" class="icon-lg">
+    <h1 class="m-0 ms-2">{{ recruitment }}</h1>
+    {% else %}
+    <label onclick="changePage('profile', args={uuid: '{{ recruitment.user.uuid }}'});" class="d-flex justify-content-start align-items-center">
+        <img src="{{ recruitment.user.profile_icon.url }}" class="icon-lg">
+        <h1 class="m-0 ms-2">{{ recruitment }}</h1>
+    </label>
+    {% endif %}
+
+    {% if type == 'group' and user_count != 1 %}
+    <h3 class="mb-0 mt-2 ms-1">({{ user_count }})</h3>
+    {% endif %}
+</div>
+
+{% if type == 'group' %}
+<h5 class="mt-2 ms-2">ホスト :<p class="ms-2 h2 d-inline" onclick="changePage('profile', args={uuid: '{{ recruitment.user.uuid }}'});">{{ recruitment.user.username }}</p></h5>
+{% endif %}
+<hr class="w-100">
+
+<p class="explanation" style="min-height: 100px;">{{ recruitment.explanation }}</p>
+<hr class="w-100">
+<div class="d-flex justify-content-center">
+    {% if recruitment.user.uuid != request.user.uuid %}
+    {% if not is_member %}
+    <button class="join-button" onclick="joinGroupChat('{{ recruitment.room.id }}')">参加する</button>
+    {% else %}
+    <button class="join-button" onclick="startIndividualChat('{{ recruitment.user.uuid }}');">トークを開始</button>
+    {% endif %}
+
+    {% else %}
+    <button class="stop-button" onclick="deleteRecruitment('{{ type }}', '{{ recruitment.id }}');">募集をやめる</button>
+    {% endif %}
+</div>
