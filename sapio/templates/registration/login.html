@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ログイン{% endblock %}
+{% block files %}
+<!-- css読み込み -->
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/css/login.css' %}">
+{% endblock files %}
+
+{% block content %}
+<header>
+    <img src="{% static 'sapio/image/icon.PNG' %}" class="app-icon m-3">
+    <div class="flex-fill"></div>
+    <a href="{% url 'signup' %}" class="link signup-link">アカウントを作成</a>
+    <div style="width: 5vw"></div>
+    <a href="{% url 'index' %}" class="link top-link">トップ</a>
+    <div style="width: 5vw"></div>
+</header>
+<main>
+    <div class="flex-fill"></div>
+    <form method="POST" id="login-form">
+        {% csrf_token %}
+        <h2>ログイン</h2>
+        <div class="mt-3">
+            <p class="subject">メールアドレス</p>
+
+            <!-- フォームを送信してエラーがあったときに、メールアドレスが入力されていたら埋める -->
+            {% if form.username.value != None %}
+            <input class="input-box" type="email" name="username" value="{{ form.username.value }}">
+            {% else %}
+            <input class="input-box" type="email" name="username">
+            {% endif %}
+
+            <div class="error">
+                <span id="error-username">{{ form.errors.username }}</span>
+            </div>
+
+            <p class="subject">パスワード</p>
+
+            <!-- フォームを送信してエラーがあったときに、パスワードが入力されていたら埋める -->
+            {% if form.password.value != None %}
+            <input class="input-box" type="password" name="password" value="{{ form.password.value }}">
+            {% else %}
+            <input class="input-box" type="password" name="password">
+            {% endif %}
+            <div class="error">
+                <span id="error-password">{{ form.errors.password }}</span>
+            </div>
+        </div>
+        <div class="error-container">
+            {% for error in form.non_field_errors %}
+                <div class="error">
+                    <span>{{ error }}</span>
+                </div>
+            {% endfor %}
+        </div>
+
+        <input type="submit" class="submit-button mt-5" value="ログイン">
+        <a href="{% url 'signup' %}" class="link mt-4 text-center">アカウントをお持ちでない方はこちら</a>
+    </form>
+    <div class="flex-fill"></div>
+    <div class="flex-fill"></div>
+</main>
+<!-- jsファイル読み込み -->
+<script src="{% static 'sapio/js/funcs.js' %}"></script>
+<script src="{% static 'accounts/js/login.js' %}"></script>
+{% endblock content %}

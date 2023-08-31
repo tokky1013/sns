@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ホーム{% endblock %}
+{% block files %}
+<!-- css読み込み -->
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/css/setting.css' %}">
+{% endblock files %}
+
+{% block content %}
+<header>
+    <!-- cropper -->
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'sapio/css/cropper.min.css' %}">
+    <!-- javascript -->
+    <script type="text/javascript" src="{% static 'sapio/js/cropper.min.js' %}"></script>
+</header>
+<main class="bg-secondary">
+    <div class="nav-bar">
+        <label id="go-back-button" onclick="location.href = homeURL;" class="width-50"><i class="fa-solid fa-angle-left fa-3x text-light my-2 ms-4"></i></label>
+        <div class="flex-fill"></div>
+        <h1 id="title" class="text-light my-2">設定</h1>
+        <div class="flex-fill"></div>
+        <div class="width-50"></div>
+    </div>
+
+    <div id="menu-page">
+        <div class="d-flex align-items-center">
+            <img src="{{ request.user.profile_icon.url }}" class="icon-lg my-3 ms-4">
+            <h1 class="mb-0 ms-3">{{ request.user.username }}</h1>
+        </div>
+        <div class="ps-4">
+            <hr class="w-100 m-0 mt-3">
+            <label onclick="showPage('edit-profile')" class="menu">プロフィールの編集<i class="fa-solid fa-angle-right me-3"></i></label>
+            <label onclick="showPage('change-email')" class="menu">メールアドレスの変更<i class="fa-solid fa-angle-right me-3"></i></label>
+            <!-- <label onclick="showPage('blocked-users')" class="menu">ブロックしたユーザー<i class="fa-solid fa-angle-right me-3"></i></label> -->
+            <a href="#" class="menu link text-dark">プライバシーポリシー<i class="fa-solid fa-angle-right me-3"></i></a>
+            <a href="{% url 'logout' %}" class="menu link text-danger justify-content-center">ログアウト</a>
+        </div>
+    </div>
+    <!-- <div id="dummy" class="page bg-secondary d-block"></div> -->
+
+    <!-- プロフィールの編集ページ -->
+    <div id="edit-profile" class="page">
+        <form method="POST">
+            <div id="profile-icon" class="py-3">
+                <label for="profile-icon-input">
+                    <img src="{{ request.user.profile_icon.url }}" id="uploaded-icon" class="icon-maximum text-center">
+                    <div id="edit-button">
+                        <i class="fa-solid fa-pen me-1"></i>編集
+                    </div>
+                </label>
+            </div>
+
+            <h1>{{ request.user.username }}</h1>
+            <p>{{ request.user.self_introduction }}</p>
+            <input type="hidden" name="profile-icon">
+
+            <input type="submit" value="変更を保存">
+        </form>
+        <input type="file" class="d-none" id="profile-icon-input" name="uploaded-icon" accept="image/*">
+    </div>
+
+    <!-- メールアドレスの変更ページ -->
+    <div id="change-email" class="page">
+        メールアドレスの変更
+    </div>
+    <!-- <div id="blocked-users" class="page">
+        ブロックしたユーザー
+    </div> -->
+</main>
+
+<div id="cropper-page" style="display: none;">
+    <div id="cropper-container">
+        <p><img alt="トリミング画像" id="triming-canvas"/></p>
+    </div>
+    <div id="completion">
+        <label onclick="trimIcon();"><h3 class="m-0">画像を変更</h3></label>
+    </div>
+    <label id="go-back-button2" onclick="endCropper();"><i class="fa-solid fa-xmark fa-3x my-2 text-light"></i></label>
+</div>
+
+<script>
+    // Djangoで埋め込みたい文字列をここで定義
+    const homeURL = "{% url 'home' %}";
+    const profileIconURL = "{{ request.user.profile_icon.url }}"
+
+    const page = '{{ page }}';
+</script>
+<!-- jsファイル読み込み -->
+<script src="{% static 'sapio/js/funcs.js' %}"></script>
+<script src="{% static 'accounts/js/setting.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,18 @@
+<div class="d-flex justify-content-end mt-3 me-3">
+    {% if not img %}
+    <div class="d-flex align-items-end">
+        <small class="text-muted text-end me-1">${created_at}</small>
+        <div class="message-blue">${message}</div>
+    </div>
+    {% else %}
+    <div class="d-flex flex-column align-items-end">
+        {% if msg %}
+        <div class="message-blue mb-2">${message}</div>
+        {% endif %}
+        <div class="d-flex align-items-end">
+            <small class="text-muted text-end me-1">${created_at}</small>
+            <img src="${image}" class="message-image" onclick="showImage('${image}');">
+        </div>
+    </div>
+    {% endif %}
+</div>

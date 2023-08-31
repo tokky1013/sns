@@ -1,0 +1,19 @@
+<div class="d-flex mt-3 ms-2">
+    <label onclick="changePage('profile', args={uuid: '${user_id}'});"><img src="${icon}" class="icon me-2"></label>
+    {% if not img %}
+    <div class="d-flex align-items-end mt-2">
+        <div class="message-gray">${message}</div>
+        <small class="text-muted ms-1">${created_at}</small>
+    </div>
+    {% else %}
+    <div class="d-flex flex-column align-items-start mt-2">
+        {% if msg %}
+        <div class="message-gray mb-2">${message}</div>
+        {% endif %}
+        <div class="d-flex align-items-end">
+            <img src="${image}" class="message-image" onclick="showImage('${image}');">
+            <small class="text-muted text-end ms-1">${created_at}</small>
+        </div>
+    </div>
+    {% endif %}
+</div>

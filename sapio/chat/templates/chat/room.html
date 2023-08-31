@@ -1,0 +1,46 @@
+<div id="chat-header">
+    <label onclick="gotoRoomListPage();" class="mx-3"><i class="fa-solid fa-angle-left fa-3x"></i></label>
+
+    {% if type == 'group' %}
+    <img src="{{ room_icon.url }}" class="icon">
+    {% else %}
+    <label onclick="changePage('profile', args={uuid: '{{ user.uuid }}'});"><img src="{{ room_icon.url }}" class="icon"></label>
+    {% endif %}
+
+    <h3 class="ms-3 mb-0">{{ room_name }}</h3>
+    <div class="flex-fill"></div>
+    {% if type == 'group' %}
+    <label onclick="changePage('room_detail', args={room_id: '{{ room.id }}'});"><i class="fa-solid fa-ellipsis fa-2x me-3"></i></label>
+    {% endif %}
+</div>
+<div id="chat-container">
+    <div id="chat-spacer-bottom" style="margin-top: 83px"></div>
+    <!-- メッセージが少ない時に上にやる用 -->
+    <div class="flex-fill"></div>
+    <div id="messages" class="flex-fill">
+        <!-- ここにメッセージが入る -->
+    </div>
+    <div class="spacer-70"></div>
+    <div class="input-field">
+        <div>
+            <div id="preview" style="display: none;">
+                <label id="delete-image" onclick="deleteImage();">
+                    <i class="fa-solid fa-circle-xmark delete"></i>
+                </label>
+            </div>
+        </div>
+        <form id="input-form" onsubmit="sendMessage(); return false">
+            <input type="file" name="image" accept="image/*" id="image_upload" class="d-none" onchange="loadImage(this);">
+            <label for="image_upload">
+                <i class="fa-solid fa-image fa-3x image_upload"></i>
+            </label>
+
+            <div class="d-flex align-items-center flex-fill">
+                <textarea id="input_message" placeholder="メッセージを送信"></textarea>
+            </div>
+
+            <input id="submit" type="submit" class="d-none" value="送信">
+            <label for="submit"><i id="send-button" class="fa-solid fa-paper-plane mx-3 mt-2 submit-button fa-2x" style="color: gray;"></i></label>
+        </form>
+    </div>
+</div>

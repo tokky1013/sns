@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}アカウント作成{% endblock %}
+{% block files %}
+<!-- css読み込み -->
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/css/signup.css' %}">
+{% endblock files %}
+
+{% block content %}
+<header>
+    <!-- cropper -->
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'sapio/css/cropper.min.css' %}">
+    <!-- javascript -->
+    <script type="text/javascript" src="{% static 'sapio/js/cropper.min.js' %}"></script>
+
+    <img src="{% static 'sapio/image/icon.PNG' %}" class="app-icon m-3">
+    <div class="flex-fill"></div>
+    <a href="{% url 'login' %}" class="link login-link">ログイン</a>
+    <div style="width: 5vw"></div>
+    <a href="{% url 'index' %}" class="link top-link">トップ</a>
+    <div style="width: 5vw"></div>
+</header>
+<main>
+    <form method="POST" id="signup-form"><!-- autocomplete="off"> -->
+        {% csrf_token %}
+        <input type="button" id="go-back" class="d-none" onclick="previous();">
+        <div id="form-container">
+            <label for="go-back" class="go-back" id="go-back-button" style="display: none;"><i class="fa-solid fa-angle-left fa-3x"></i></label>
+            <div class="page">
+                <div class="flex-fill"></div>
+                <h2>アカウント作成</h2>
+                <div class="mt-3">
+                    <p class="subject">メールアドレス</p>
+                    <!-- data-page属性はその入力欄が何ページ目にあるかを示す -->
+                    <input id="email" class="input-box" type="email" data-page="0">
+                    <div class="error">
+                        <span id="error-email"></span>
+                    </div>
+                </div>
+
+                <input id="submit-button-0" type="button" class="submit-button mt-5" value="次へ" onclick="validate(0);" data-page="0">
+                <a href="{% url 'login' %}" class="link mt-4 text-center">アカウントをお持ちの方はこちら</a>
+
+                <div class="flex-fill"></div>
+                <div class="flex-fill"></div>
+            </div>
+
+            <div class="page">
+                <div class="flex-fill"></div>
+
+                <h2>パスワード入力</h2>
+                <div class="mt-3">
+                    <p class="subject">パスワード</p>
+                    <input id="password1" class="input-box" type="password" data-page="1">
+                    <div class="error">
+                        <span id="error-password1"></span>
+                    </div>
+
+                    <p class="subject">パスワード確認用</p>
+                    <input id="password2" class="input-box" type="password" data-page="1">
+                    <div class="error">
+                        <span id="error-password2"></span>
+                    </div>
+                </div>
+
+                <input id="submit-button-1" type="button" class="submit-button mt-5" value="次へ" onclick="validate(1);" data-page="1">
+
+                <div class="flex-fill"></div>
+                <div class="flex-fill"></div>
+            </div>
+
+            <div class="page">
+                <div class="flex-fill"></div>
+
+                <h2>ユーザー名</h2>
+                <div class="mt-3">
+                    <p class="subject">ユーザー名<small class="ms-2">※あとから変更可能です。</small></p>
+                    <input id="username" class="input-box" type="text" data-page="2">
+                    <div class="error">
+                        <span id="error-username"></span>
+                    </div>
+                </div>
+
+                <input id="submit-button-2" type="button" class="submit-button mt-5" value="次へ" onclick="validate(2);" data-page="2">
+
+                <div class="flex-fill"></div>
+                <div class="flex-fill"></div>
+            </div>
+
+            <div class="page">
+                <div class="flex-fill"></div>
+
+                <h2>アイコンの設定</h2>
+                <div class="mt-3">
+                    <!-- アイコンの画像ファイルのアップロード用 -->
+                    <input id="icon-file-input" type="file" class="d-none" accept="image/*" data-page="3">
+                    <label for="icon-file-input" class="d-flex justify-content-center mt-4">
+                        <div id="icon-preview">
+                            <i class="fa-solid fa-circle-plus fa-3x plus-button"></i>
+                            <i class="fa-solid fa-circle-xmark delete-button text-muted"></i>
+                        </div>
+                    </label>
+
+                    <div class="error mt-2 me-5 pe-3 text-center">
+                        <span id="error-resized_icon"></span>
+                    </div>
+                </div>
+
+                <input id="submit-button-3" type="button" class="submit-button mt-5" value="後で設定する" style="background-color: black; font-size: 85%;" onclick="validate(3);" data-page="3">
+
+                <div class="flex-fill"></div>
+                <div class="flex-fill"></div>
+                <!-- 送信するアイコンはここにbase64形式でセットする -->
+                <input id="resized_icon" type="hidden"  accept="image/*" data-page="3">
+            </div>
+
+            <div id="triming-page" class="page" style="display: none;">
+                <div class="cropper-container">
+                    <p><img alt="トリミング画像" id="trimed_image"/></p>
+                </div>
+                <!-- <input type="button" id="trim-icon" class="d-none" onclick="trimIcon();"> -->
+                <label onclick="trimIcon();" id="completion" class="completion-btn"><h4>完了</h4></label>
+            </div>
+
+            <div class="page pt-5">
+                <div class="flex-fill"></div>
+
+                <h2>ユーザー情報の登録</h2>
+                <div class="mt-2">
+
+                    <p class="subject">生年月日<small class="ms-2"> ※必須</small></p>
+                    <div class="birthday-container">
+                        
+                        <select id="birthday-year" class="date-box text-center">
+                        </select>
+                        <h3 class="slash">/</h3>
+                        <select id="birthday-month" class="date-box text-center">
+                        </select>
+                        <h3 class="slash">/</h3>
+                        <select id="birthday-day" class="date-box text-center">
+                        </select>
+                    </div>
+                    <div class="error">
+                        <span id="error-date_of_birth"></span>
+                    </div>
+                    <input id="date_of_birth" class="d-none" type="date" data-page="4">
+
+                    <p class="subject">性別<small class="ms-2"> ※必須</small></p>
+                    <select id="gender" class="input-box" data-page="4">
+                        <option id="null-selection-gender" value="" selected></option>
+                        <option value="male">男性</option>
+                        <option value="female">女性</option>
+                    </select>
+                    <div class="error">
+                        <span id="error-gender"></span>
+                    </div>
+
+                    <p class="subject">居住地<small class="ms-2"> ※必須</small></p>
+                    <select id="area_of_residence" class="input-box" data-page="4">
+                        <option id="null-selection-area_of_residence" value="" selected></option>
+                        {% for prefecture in prefectures %}
+                        <option value="{{ prefecture.pk }}">{{ prefecture.prefecture_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="error">
+                        <span id="error-area_of_residence"></span>
+                    </div>
+
+                    <p class="subject">自己紹介<small class="ms-2">※この項目はあとから設定可能です。</small></p>
+                    <textarea id="self_introduction" class="input-box" cols="30" rows="5" data-page="4"></textarea>
+                    <div class="error">
+                        <span id="error-self_introduction"></span>
+                    </div>
+                </div>
+
+                <input id="submit-button-4" type="button" class="submit-button mt-5" value="アカウント作成" onclick="createAccount();" data-page="4">
+
+                <small id="message-about-email" class="w-100 mt-3 px-3 text-center" style="font-size: 0.8rem;"></small>
+
+                <div class="flex-fill"></div>
+                <div class="flex-fill"></div>
+                <div class="spacer"></div>
+            </div>
+        </div>
+    </form>
+</main>
+<footer>
+    <div id="page0" class="page-dot" style="background-color: gray;"></div>
+    <div id="page1" class="page-dot"></div>
+    <div id="page2" class="page-dot"></div>
+    <div id="page3" class="page-dot"></div>
+    <div id="page4" class="page-dot"></div>
+</footer>
+<script>
+    const validationURLs = [
+        "{% url 'validate' '0' %}",
+        "{% url 'validate' '1' %}",
+        "{% url 'validate' '2' %}",
+    ];
+    const loginRedirectURL = "{{ login_redirect_url }}";
+    const createAccountURL = "{% url 'create_account' %}";
+</script>
+<!-- jsファイル読み込み -->
+<script src="{% static 'sapio/js/funcs.js' %}"></script>
+<script src="{% static 'accounts/js/signup.js' %}"></script>
+{% endblock content %}
